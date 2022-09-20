@@ -1,0 +1,252 @@
+@font-face {
+    font-family: 'Lobster';
+    src: url(./Lobster.ttf);
+    font-weight: 600;
+    font-style: normal;
+}
+
+html {
+    height: 100%;
+    width: 100%;
+}
+
+body {
+    /* background: cornflowerblue; */
+    margin: 0%;
+    padding: 0%;
+    height: 100%;
+}
+
+header {
+    background: #f1f1f1;
+    padding: 20px;
+    text-align: center;
+    font-size: 3rem;
+    color: #333;
+    font-family: 'Lobster', cursive;
+}
+
+#wrapper {
+    position: relative;
+    display: grid;
+    grid-template-columns: 1fr 5fr;
+}
+
+#nav {
+    background: #333;
+    color: #f1f1f1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; 
+    align-items: center;
+    gap: 1rem;
+    padding: 10px;
+}
+
+#nav > button {
+  appearance: none;
+  background-color: #FFFFFF;
+  border-radius: 40em;
+  border-style: none;
+  box-shadow: #ADCFFF 0 -12px 6px inset;
+  box-sizing: border-box;
+  color: #000000;
+  cursor: pointer;
+  display: inline-block;
+  font-family: -apple-system,sans-serif;
+  font-size: 1.2rem;
+  font-weight: 700;
+  letter-spacing: -.24px;
+  outline: none;
+  margin: 0;
+  padding: 1rem 1.3rem;
+  quotes: auto;
+  text-align: center;
+  text-decoration: none;
+  transition: all .15s;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+}
+
+#nav > button:hover {
+  background-color: #FFC229;
+  box-shadow: #FF6314 0 -6px 8px inset;
+  transform: scale(1.125);
+}
+
+#nav > button:active {
+  transform: scale(1.025);
+}
+
+
+#new-task-heading, #heading {
+    cursor: default;
+    font-family: 'Lobster', cursive;
+    font-size: 3rem;
+    color: whitesmoke;
+}
+
+#content {
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    /* justify-self: center; */
+    margin: 2rem;
+}
+
+#form-buttons { 
+    display: flex;
+    gap: 1rem;
+}
+
+#form-buttons > button {
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+}
+
+#new-task-button, #delete-all, #submit-button, #cancel-button, #delete-completed-button {
+    display: inline-block;
+    outline: none;
+    cursor: pointer;
+    font-size: 14px;
+    border-radius: 15px;
+    transition-property: background-color,border-color,color,box-shadow,filter;
+    transition-duration: .3s;
+    border: 1px solid transparent;
+    letter-spacing: 2px;
+    text-transform: uppercase;
+    white-space: normal;
+    font-weight: 700;
+    text-align: center;
+    padding: 14px;
+    color: #fff;
+    background-color: #3b49df;
+}
+
+#new-task-button:hover, #submit-button:hover {
+    background-color: #1db954;
+}
+
+#delete-all, #cancel-button, #delete-completed-button {
+    opacity: 70%;
+    background-color: #e53935;
+}
+
+#delete-all:hover, #cancel-button:hover, #delete-completed-button:hover {
+    opacity: 100%;
+}
+
+#new-task-form, #new-project-form > form {
+    border-radius: 15px;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    margin: auto;
+    width: max-content;
+    height: max-content;
+    display: flex;
+    flex-direction: column;
+    padding: 1rem;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0,0,0,0.350);
+}
+
+#new-task-form > input, #new-project-form > form > input {
+    font-family: Lobster, cursive;
+    width: 100%;
+    border-radius: 15px;
+    background: rgb(249, 250, 250);
+    border: 1px solid rgb(181, 189, 196);
+    font-size: 16px;
+    line-height: 24px;
+    padding: 7px 8px;
+    color: rgb(8, 9, 10);
+    box-shadow: none;
+}
+
+#new-task-form > input:focus, #new-project-form > form > input:focus {
+    background-color: #fff;
+    outline: none;
+    border-color: #3b49df;
+    box-shadow: 1px 1px 0 #3b49df;
+}
+
+#project-description {
+    grid-column: 1/3;
+    border-radius: 15px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    color: white;
+    position: relative;
+    margin: -1rem -1rem 0 -1rem;
+    padding: 1rem;
+    background: rgba(0, 0, 0, 0.350);
+}
+
+p {
+    margin: 0%;
+}
+
+.checked {
+    text-decoration: line-through;
+    opacity: 50%;
+}
+
+.hidden {
+    display: none !important;
+}
+
+.task {
+    background: #3b49df;
+    color: #fff;
+    border-radius: 5px;
+    box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px;
+    cursor: pointer;
+    user-select: none;
+    width: 30vw;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.task:hover {
+    width: max-content;
+    background-color: rgba(0, 0, 0, 0.350);
+    color: whitesmoke;
+}
+
+.task:hover > p {
+    display: inherit;
+    width: max-content;
+}
+
+.task-name {
+    font-family: monospace;
+    font-size: 1.5rem;
+    font-weight: bold;
+}
+
+.task-due-date {
+    font-family: monospace;
+    font-size: 1.5rem;
+    align-self: right;
+}
+
+
+.task-description {
+    display: none;
+    font-family: monospace;
+    font-size: 1.5rem;
+}
+
+.task-priority {
+    color: #e53935;
+    display: none;
+    font-family: monospace;
+    font-size: 1rem;
+    font-weight: bold;
+}
