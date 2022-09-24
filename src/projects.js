@@ -82,6 +82,7 @@ export const createLayout = () => {
     wrapper.appendChild(nav);
     const content = document.createElement('div');
     content.id = 'content';
+    content.innerHTML = '<div id="project-description"><b>Create a project to get started!</b></div>';
     wrapper.appendChild(content);
     projectPage();
 }
@@ -96,8 +97,8 @@ const newProjectPage = () => {
     const title = document.createElement('input');
     title.type = 'text';
     title.placeholder = 'Project Title';
-    const description = document.createElement('input');
-    description.type = 'text';
+    const description = document.createElement('textarea');
+    description.id = 'new-project-description';
     description.placeholder = 'Project Description';
     const submit = document.createElement('input');
     submit.type = 'submit';
@@ -121,9 +122,16 @@ const newProjectPage = () => {
     
     submit.addEventListener('click', (e) => {
         e.preventDefault();
-        const project = new Project(title.value, description.value);
-        projectList.addProject(project);
-        projectPage();
+        if (title.value.length > 3 && description.value.length > 0) {
+            const project = new Project(title.value, description.value);
+            projectList.addProject(project);
+            projectPage();
+            document.getElementById('new-project-form').classList.toggle('hidden');
+        } else if(title.value.length < 3) {
+            alert('Title must be at least 3 characters long!');
+        } else if(description.value.length < 1) {
+            alert('Description must be at least 1 character long!');
+        }
     });
     cancel.addEventListener('click', () => {
         content.classList.add('hidden');

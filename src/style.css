@@ -91,7 +91,6 @@ header {
     display: flex;
     flex-direction: column;
     gap: 0.5rem;
-    /* justify-self: center; */
     margin: 2rem;
 }
 
@@ -155,7 +154,8 @@ header {
     background: rgba(0,0,0,0.350);
 }
 
-#new-task-form > input, #new-project-form > form > input {
+#new-task-form > input, #new-project-form > form > input, #new-project-description {
+    text-align: center;
     font-family: Lobster, cursive;
     width: 100%;
     border-radius: 15px;
@@ -166,6 +166,15 @@ header {
     padding: 7px 8px;
     color: rgb(8, 9, 10);
     box-shadow: none;
+}
+
+#new-project-description {
+   height: 50px; 
+}
+
+#new-project-description:focus{
+    outline: none;
+    border: 1px solid #3b49df;
 }
 
 #new-task-form > input:focus, #new-project-form > form > input:focus {
