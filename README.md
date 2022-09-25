@@ -5,6 +5,9 @@ Exercise for TheOdinProject
 to do: 
 
 - [ ] Implement `localStorage`
-- [ ] Add change theme button
 - [ ] Make it responsive
-- [ ] Make tasks look better
+- [x] Make tasks look better
+
+Stretch Goals: 
+- [ ] Sorting option for tasks
+- [ ] Add change theme button 
