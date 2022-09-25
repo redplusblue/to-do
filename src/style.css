@@ -6,9 +6,9 @@
 }
 
 body {
-    background-color: rgba(0, 0, 0, 0.100);
     display: grid;
     grid-template-rows: 1fr 10fr;
+    background-image: url(./bg.png);
 }
 
 html, body {
@@ -22,7 +22,7 @@ html, body {
 }
 
 header {
-    background: #f1f1f1;
+    background: #f1f1f1e8;
     padding: 20px;
     text-align: center;
     font-size: 3rem;
@@ -39,7 +39,7 @@ header {
 
 
 #nav {
-    background: #333;
+    background: rgba(51, 51, 51, 0.900);
     color: #f1f1f1;
     display: flex;
     flex-direction: column;
@@ -155,7 +155,7 @@ header {
     padding: 1rem;
     gap: 1rem;
     align-items: center;
-    background: rgba(0,0,0,0.350);
+    background: rgba(0,0,0,0.500);
 }
 
 #new-task-form > input, #new-project-form > form > input, #new-project-description {
@@ -198,7 +198,7 @@ header {
     position: relative;
     margin: -1rem -1rem 0 -1rem;
     padding: 1rem;
-    background: rgba(0, 0, 0, 0.350);
+    background: rgba(0, 0, 0, 0.450);
 }
 
 p {
