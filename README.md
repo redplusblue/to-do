@@ -4,7 +4,7 @@ Exercise for TheOdinProject
 
 to do: 
 
-- [ ] Implement `localStorage`
+- [x] Implement `localStorage`
 - [ ] Make alerts cascade
 - [ ] Make it responsive
 - [x] Make tasks look better
