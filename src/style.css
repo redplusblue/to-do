@@ -5,16 +5,20 @@
     font-style: normal;
 }
 
-html {
-    height: 100%;
-    width: 100%;
+body {
+    background-color: rgba(0, 0, 0, 0.100);
+    display: grid;
+    grid-template-rows: 1fr 10fr;
 }
 
-body {
-    /* background: cornflowerblue; */
-    margin: 0%;
-    padding: 0%;
-    height: 100%;
+html, body {
+    position:fixed;
+    top:0;
+    bottom:0;
+    left:0;
+    right:0;
+    margin: 0;
+    padding: 0;
 }
 
 header {
@@ -24,6 +28,7 @@ header {
     font-size: 3rem;
     color: #333;
     font-family: 'Lobster', cursive;
+    cursor: default;
 }
 
 #wrapper {
@@ -32,12 +37,12 @@ header {
     grid-template-columns: 1fr 5fr;
 }
 
+
 #nav {
     background: #333;
     color: #f1f1f1;
     display: flex;
     flex-direction: column;
-    justify-content: center; 
     align-items: center;
     gap: 1rem;
     padding: 10px;
@@ -103,7 +108,7 @@ header {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
-#new-task-button, #delete-all, #submit-button, #cancel-button, #delete-completed-button {
+#new-task-button, #delete-all, #submit-button, #cancel-button, #delete-completed-button, #delete-project {
     display: inline-block;
     outline: none;
     cursor: pointer;
@@ -126,12 +131,12 @@ header {
     background-color: #1db954;
 }
 
-#delete-all, #cancel-button, #delete-completed-button {
+#delete-all, #cancel-button, #delete-completed-button, #delete-project {
     opacity: 70%;
     background-color: #e53935;
 }
 
-#delete-all:hover, #cancel-button:hover, #delete-completed-button:hover {
+#delete-all:hover, #cancel-button:hover, #delete-completed-button:hover, #delete-project:hover {
     opacity: 100%;
 }
 
@@ -149,7 +154,6 @@ header {
     flex-direction: column;
     padding: 1rem;
     gap: 1rem;
-    justify-content: center;
     align-items: center;
     background: rgba(0,0,0,0.350);
 }
@@ -174,7 +178,8 @@ header {
 
 #new-project-description:focus{
     outline: none;
-    border: 1px solid #3b49df;
+    border-color: #3b49df;
+    box-shadow: 1px 1px 0 #3b49df;
 }
 
 #new-task-form > input:focus, #new-project-form > form > input:focus {
@@ -187,6 +192,7 @@ header {
 #project-description {
     grid-column: 1/3;
     border-radius: 15px;
+    font-size: 18px;
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     color: white;
     position: relative;
