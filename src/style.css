@@ -8,8 +8,12 @@
 body {
     display: grid;
     grid-template-rows: 1fr 10fr;
-    background-image: url(./bg.png);
+    /* background-image: url(./bg.png); */
+    background-image: url(./bg1.jpg);
+    background-position: center;
+
 }
+
 
 html, body {
     position:fixed;
@@ -22,7 +26,7 @@ html, body {
 }
 
 header {
-    background: #f1f1f1e8;
+    background: #f1f1f1d0;
     padding: 20px;
     text-align: center;
     font-size: 3rem;
@@ -221,7 +225,8 @@ p {
     box-shadow: rgba(27, 31, 35, 0.04) 0px 1px 0px 0px;
     cursor: pointer;
     user-select: none;
-    width: 30vw;
+    min-width: 30vw;
+    /* width: fit-content; */
     display: flex;
     flex-direction: row;
     align-items: center;
@@ -229,7 +234,7 @@ p {
 }
 
 .task:hover {
-    width: max-content;
+    /* width: max-content; */
     background-color: rgba(0, 0, 0, 0.350);
     color: whitesmoke;
 }

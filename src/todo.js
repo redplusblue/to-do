@@ -1,3 +1,5 @@
+import _ from 'lodash';
+
 class Task {
     constructor(name, description, dueDate, priority, project) {
         this.name = name;
@@ -61,7 +63,6 @@ const projectPage = () => {
             nav.appendChild(newProject);
             newProject.addEventListener('click', () => {
                currentProject.setCurrentProject(project);
-               console.log(currentProject.getCurrentProject());
                content.innerHTML = '';
                const projectDescription = document.createElement('div');
                projectDescription.id = 'project-description';
@@ -71,6 +72,7 @@ const projectPage = () => {
             });
             newProject.click();
         })
+        storage.saveToStorage();
     })();
     nav.appendChild(addChecklist);
     addChecklist.addEventListener('click', () => {
@@ -87,6 +89,14 @@ const projectPage = () => {
         document.getElementById('add-checklist').click();
     }
 }
+
+const formatDate = (date) => {
+    const year = date.slice(0, 4);
+    const month = date.slice(5, 7);
+    const day = date.slice(8, 10);
+    return `${month}/${day}/${year.slice(2, 4)}`;
+}
+
 
 const newProjectPage = () => {
     const content = document.createElement('div');
@@ -127,11 +137,13 @@ const newProjectPage = () => {
             const project = new Project(title.value, description.value);
             projectList.addProject(project);
             projectPage();
+            title.value = '';
+            description.value = '';
             document.getElementById('new-project-form').classList.toggle('hidden');
         } else if(title.value.length < 3) {
             alert('Title must be at least 3 characters long!');
         } else if(description.value.length < 1) {
-            alert('Description must be at least 1 character long!');
+            alert('Description cannot be empty!');
         } else {
             alert('Something went wrong!');
         }
@@ -163,16 +175,14 @@ const taskList = (() => {
     };
     const clearTasks = () => {
         const project = currentProject.getCurrentProject();
-        const tasks = getTasksByProject(project);
-        console.log(tasks);
-        tasks.forEach((task) => {
-            removeTask(task);
-        });
+        while (getTasksByProject(project).length > 0) {
+            removeTask(getTasksByProject(project)[0]);
+        }
     };
     const getTasksByProject = (project) => {
         const tasksByProject = [];
         tasks.forEach((task) => {
-            if (task.project === project) {
+            if (_.isEqual(task.project, project)) {
                 tasksByProject.push(task);
             }
         });
@@ -214,7 +224,9 @@ const taskPage = () => {
         taskDiv.appendChild(taskName);
         const taskDueDate = document.createElement('p');
         taskDueDate.classList.add('task-due-date');
-        taskDueDate.textContent = 'Due: ' + task.dueDate;
+        if (task.dueDate) {
+            taskDueDate.textContent = "Due: " + formatDate(task.dueDate);
+        }
         taskDiv.appendChild(taskDueDate);
         const taskDescription = document.createElement('p');
         taskDescription.classList.add('task-description');
@@ -226,7 +238,6 @@ const taskPage = () => {
         taskPriority.classList.add('task-priority');
         taskDiv.appendChild(taskPriority);
         taskDiv.addEventListener('click', () => {
-            console.log(task);
             checked.checked = !checked.checked;
             if (checked.checked == true) {
                 taskDiv.classList.add('checked');
@@ -245,6 +256,7 @@ const taskPage = () => {
             checked.checked = false;
         }
     });
+    storage.saveToStorage();
     const newTaskButton = document.createElement('button');
     newTaskButton.textContent = 'New Task';
     newTaskButton.id = 'new-task-button';
@@ -353,16 +365,19 @@ const newTaskPage = () => {
     cancelButton.addEventListener('click', () => { taskPage(); });
 
     submitButton.addEventListener('click', (e) => {
-        e.preventDefault();
-        const title = titleInput.value;
-        const description = descriptionInput.value;
-        const dueDate = dueDateInput.value;
-        const priority = priorityInput.value;
-        const project = currentProject.getCurrentProject();
-        const task = new Task(title, description, dueDate, priority, project);
-        taskList.addTask(task);
-        console.log(task);
-        taskPage();
+        if (titleInput.value == '' || descriptionInput.value == '') {
+            e.preventDefault();
+            alert('Task must have a title and description!');
+        } else {
+            const title = titleInput.value;
+            const description = descriptionInput.value;
+            const dueDate = dueDateInput.value;
+            const priority = priorityInput.value;
+            const project = currentProject.getCurrentProject();
+            const task = new Task(title, description, dueDate, priority, project);
+            taskList.addTask(task);
+            taskPage();
+        }
     });
 
     buttons.appendChild(submitButton);
@@ -390,10 +405,7 @@ const projectList = (() => {
               if (project.description === description) {
                     return project;
                 }
-            });
-       //if(description === 'Default') {
-       //    return projects[0];
-       //}    
+            });   
     }
     const clearProjects = () => {
         projects.splice(0, projects.length);
@@ -401,6 +413,93 @@ const projectList = (() => {
     return { addProject, removeProject, getProjects, getProjectByDescription, clearProjects };
 })();
 
+// Storage, source: MDN
+
+const storage = (() => {
+    function storageAvailable(type) {
+        let storage;
+        try {
+            storage = window[type];
+            const x = '__storage_test__';
+            storage.setItem(x, x);
+            storage.removeItem(x);
+            return true;
+        }
+        catch (e) {
+            return e instanceof DOMException && (
+                // everything except Firefox
+                e.code === 22 ||
+                // Firefox
+                e.code === 1014 ||
+                // test name field too, because code might not be present
+                // everything except Firefox
+                e.name === 'QuotaExceededError' ||
+                // Firefox
+                e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
+                // acknowledge QuotaExceededError only if there's something already stored
+                (storage && storage.length !== 0);
+        }
+    }
+
+    function saveToStorage() {
+        if (storageAvailable('localStorage')) {
+            localStorage.clear();
+            localStorage.setItem('projects', JSON.stringify(projectList.getProjects()));
+            console.log(taskList.getTasks());
+            localStorage.setItem('tasks', JSON.stringify(taskList.getTasks()));
+        } else if (storageAvailable('sessionStorage')) {
+            sessionStorage.clear();
+            sessionStorage.setItem('projects', JSON.stringify(projectList.getProjects()));
+            sessionStorage.setItem('tasks', JSON.stringify(taskList.getTasks()));
+        } else {
+            console.log('No storage available');
+        }
+    }
+
+    const checkIfSaved = (storage) => {
+        if (storage.getItem('projects') != null) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    if (storageAvailable('localStorage')) {
+        if(checkIfSaved(localStorage)) {
+            const projects = JSON.parse(localStorage.getItem('projects'));
+            const tasks = JSON.parse(localStorage.getItem('tasks'));
+            projects.forEach((project) => {
+                projectList.addProject(project);
+            });
+            tasks.forEach((task) => {
+                taskList.addTask(task);
+            });
+        } else {
+            alert('No saved projects found!');
+        }
+    }
+    else {
+        if (storageAvailable('sessionStorage')) {
+            checkIfSaved(sessionStorage);
+            if (checkIfSaved(sessionStorage)) {
+                const projects = JSON.parse(sessionStorage.getItem('projects'));
+                projects.forEach((project) => {
+                    projectList.addProject(project);
+                });
+                const tasks = JSON.parse(sessionStorage.getItem('tasks'));
+                tasks.forEach((task) => {
+                    taskList.addTask(task);
+                });
+            } else {
+                alert('No saved projects found!');
+            }
+        }
+        else {
+            alert('No storage available! Your data will not be saved.');
+        }
+    }
+    return { saveToStorage };
+})();   
 
 
 
