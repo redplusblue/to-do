@@ -40,8 +40,8 @@ const currentProject = (() => {
     let currentProject = null;
     const getCurrentProject = () => currentProject;
     const setCurrentProject = (project) => currentProject = project;
-    return {getCurrentProject, setCurrentProject};
-})(); 
+    return { getCurrentProject, setCurrentProject };
+})();
 
 const projectPage = () => {
     const content = document.getElementById('content');
@@ -62,13 +62,13 @@ const projectPage = () => {
             newProject.textContent = project.title;
             nav.appendChild(newProject);
             newProject.addEventListener('click', () => {
-               currentProject.setCurrentProject(project);
-               content.innerHTML = '';
-               const projectDescription = document.createElement('div');
-               projectDescription.id = 'project-description';
-               projectDescription.textContent = project.description;
-               content.appendChild(projectDescription);
-               taskPage();
+                currentProject.setCurrentProject(project);
+                content.innerHTML = '';
+                const projectDescription = document.createElement('div');
+                projectDescription.id = 'project-description';
+                projectDescription.textContent = project.description;
+                content.appendChild(projectDescription);
+                taskPage();
             });
             newProject.click();
         })
@@ -82,7 +82,7 @@ const projectPage = () => {
             newProjectPage();
         }
     });
-    if(projectList.getProjects().length > 0) {
+    if (projectList.getProjects().length > 0) {
         taskPage();
     } else {
         content.innerHTML = '<div id="project-description"><b>Create a project to get started!</b></div>';
@@ -121,7 +121,7 @@ const newProjectPage = () => {
     cancel.innerText = 'Cancel';
     const buttons = document.createElement('div');
     buttons.id = 'form-buttons';
-    
+
     form.appendChild(heading);
     form.appendChild(title);
     form.appendChild(description);
@@ -130,7 +130,7 @@ const newProjectPage = () => {
     form.appendChild(buttons);
     content.appendChild(form);
     document.body.appendChild(content);
-    
+
     submit.addEventListener('click', (e) => {
         e.preventDefault();
         if (title.value.length >= 3 && description.value.length > 0) {
@@ -140,9 +140,9 @@ const newProjectPage = () => {
             title.value = '';
             description.value = '';
             document.getElementById('new-project-form').classList.toggle('hidden');
-        } else if(title.value.length < 3) {
+        } else if (title.value.length < 3) {
             alert('Title must be at least 3 characters long!');
-        } else if(description.value.length < 1) {
+        } else if (description.value.length < 1) {
             alert('Description cannot be empty!');
         } else {
             alert('Something went wrong!');
@@ -400,12 +400,12 @@ const projectList = (() => {
         projects.splice(projects.indexOf(project), 1);
     };
     const getProjects = () => projects;
-    const getProjectByDescription= (description) => {
-       projects.forEach((project) => {
-              if (project.description === description) {
-                    return project;
-                }
-            });   
+    const getProjectByDescription = (description) => {
+        projects.forEach((project) => {
+            if (project.description === description) {
+                return project;
+            }
+        });
     }
     const clearProjects = () => {
         projects.splice(0, projects.length);
@@ -445,7 +445,6 @@ const storage = (() => {
         if (storageAvailable('localStorage')) {
             localStorage.clear();
             localStorage.setItem('projects', JSON.stringify(projectList.getProjects()));
-            console.log(taskList.getTasks());
             localStorage.setItem('tasks', JSON.stringify(taskList.getTasks()));
         } else if (storageAvailable('sessionStorage')) {
             sessionStorage.clear();
@@ -465,7 +464,7 @@ const storage = (() => {
     }
 
     if (storageAvailable('localStorage')) {
-        if(checkIfSaved(localStorage)) {
+        if (checkIfSaved(localStorage)) {
             const projects = JSON.parse(localStorage.getItem('projects'));
             const tasks = JSON.parse(localStorage.getItem('tasks'));
             projects.forEach((project) => {
@@ -475,7 +474,7 @@ const storage = (() => {
                 taskList.addTask(task);
             });
         } else {
-            alert('No saved projects found!');
+            console.log('No saved projects found!');
         }
     }
     else {
@@ -491,7 +490,7 @@ const storage = (() => {
                     taskList.addTask(task);
                 });
             } else {
-                alert('No saved projects found!');
+                console.loglog('No saved projects found!');
             }
         }
         else {
@@ -499,7 +498,7 @@ const storage = (() => {
         }
     }
     return { saveToStorage };
-})();   
+})();
 
 
 
