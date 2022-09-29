@@ -4,10 +4,10 @@ Exercise for TheOdinProject
 
 to do: 
 
-- [x] Implement `localStorage`
+- [ ] Add edit project button (for description as well)
+- [ ] Add edit task button
 - [ ] Make alerts cascade
 - [ ] Make it responsive
-- [x] Make tasks look better
 
 Stretch Goals: 
 - [ ] Sorting option for tasks
