@@ -232,11 +232,13 @@ const taskPage = () => {
         taskDescription.classList.add('task-description');
         taskDescription.textContent = 'Description: ' + task.description;
         taskDiv.appendChild(taskDescription);
-        const taskPriority = document.createElement('p');
-        taskPriority.classList.add('task-priority');
-        taskPriority.textContent = 'Priority: ' + task.priority;
-        taskPriority.classList.add('task-priority');
-        taskDiv.appendChild(taskPriority);
+        if (task.priority.length > 0) {
+            const taskPriority = document.createElement('p');
+            taskPriority.classList.add('task-priority');
+            taskPriority.textContent = 'Priority: ' + task.priority;
+            taskPriority.classList.add('task-priority');
+            taskDiv.appendChild(taskPriority);
+        }
         taskDiv.addEventListener('click', () => {
             checked.checked = !checked.checked;
             if (checked.checked == true) {
