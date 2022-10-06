@@ -4,6 +4,10 @@ Exercise for TheOdinProject
 
 to do: 
 
+Bugs
+- [ ] Fix empty Priority
+
+Addons
 - [ ] Add edit project button (for description as well)
 - [ ] Add edit task button
 - [ ] Make alerts cascade
