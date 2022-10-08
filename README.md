@@ -11,7 +11,7 @@
   </td>
 </table>
 
-#### Click on the pictures/the link below to try!
+## **Click on the pictures/the link below to try!**
 
 <a href="https://redplusblue.github.io/to-do/"><img src="files/preview.png" alt="A preview picture" title="Click Me!"></a>
 <a href="https://redplusblue.github.io/to-do/"><img src="files/preview_1.1.0.png" alt="A preview picture" title="Click Me!"></a>
